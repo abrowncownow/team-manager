@@ -1,5 +1,6 @@
 //import and declare constants-----
 const inquirer = require('inquirer');
+const Employee = require('./lib/Employee.js')
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
@@ -36,7 +37,7 @@ function getManager() {
             {
                 type: "input",
                 message: `Enter the "Team Manager's office number:"`,
-                name: "number",
+                name: "officeNumber",
             },
         ])
         .then((answers) => {
@@ -89,7 +90,7 @@ function addEngineer() {
             {
                 type: "input",
                 message: `Enter the "Engineer's github account:`,
-                name: "extra",
+                name: "github",
             },
         ])
         .then((answers) => {
@@ -120,7 +121,7 @@ function addIntern() {
             {
                 type: "input",
                 message: `Enter the "Intern's school:`,
-                name: "extra",
+                name: "school",
             },
         ])
         .then((answers) => {
@@ -136,21 +137,22 @@ async function generateHTML(){
     managerHTML =`
         <article class="card">
             <div class="general">
-                <img src="./assets/images/${manager.type}.png">
-                <h1>${manager.type}</h1> 
+                <img src="./assets/images/${manager.role}.png">
+                <h1>${manager.role}</h1> 
                 <h2><a href="mailto:${member.email}">${member.email}</a></h2>
                 <p>ID: ${manager.id}</p>
                 <p>Email: <a href="mailto:${manager.email}">${manager.email}</a></p>
-                <p>Office: ${manager.number}</p>
+                <p>Office: ${manager.officeNumber}</p>
             </div>
         </article>`;
     cardHTML += managerHTML;
+    console.log(team);
     team.forEach(member => 
         cardHTML+= `
                 <article class="card">
                     <div class="general">
-                        <img src="./assets/images/${member.type}.png">
-                        <h1>${member.type}</h1> 
+                        <img src="./assets/images/${member.role}.png">
+                        <h1>${member.role}</h1> 
                         <h2>${member.name}</h2>
                         <p>ID: ${member.id}</p>
                         <p>Email: <a href="mailto:${member.email}">${member.email}</a></p>
@@ -159,7 +161,7 @@ async function generateHTML(){
                 </article>
         
         `)
-var indexHTML=`
+indexHTML=`
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,7 +174,7 @@ var indexHTML=`
 <body>
     <header>
         <div>
-        <h1 id="header-text">${member.name}'s team</h1>
+        <h1 id="header-text">${manager.name}'s team</h1>
         </div>
     </header>  
 
@@ -190,9 +192,13 @@ var indexHTML=`
 
 fs.writeFile(`./dist/team_${manager.name}.html`,indexHTML,(err) =>
 err ? console.error(err) : console.log('Success!'));
+
 sleep();
+
 open(`./dist/team_${manager.name}.html`);
+
 }
+
 //declare functions------
 
 //main-----
