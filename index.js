@@ -139,7 +139,7 @@ async function generateHTML(){
             <div class="general">
                 <img src="./assets/images/${manager.role}.png">
                 <h1>${manager.role}</h1> 
-                <h2><a href="mailto:${member.email}">${member.email}</a></h2>
+                <h2><a href="mailto:${manager.email}">${manager.email}</a></h2>
                 <p>ID: ${manager.id}</p>
                 <p>Email: <a href="mailto:${manager.email}">${manager.email}</a></p>
                 <p>Office: ${manager.officeNumber}</p>
