@@ -1,101 +1,45 @@
-const TodoList = require("../todoList");
-const Todo = require("../todo");
+const Manager = require('../lib/Manager');
 
-describe("TodoList", () => {
-  describe("Initialization", () => {
-    // Positive test
-    it("should create an object with a 'todos' property set to an empty array when called with the 'new' keyword", () => {
-      // Arrange
-      const todoList = new TodoList();
+const engData = {
+    name: "Bob",
+    id: 111,
+    email: "bob@company.com",
+    officeNumber: "123-456-7899",
+    }
 
-      // Assert
-      expect(todoList.todos).toEqual([]);
-    });
-  });
+describe("Manager", () => {
+  describe("name", () => {
+    it("should create an object containing a name", () => {
+      
+        const manager = new Manager(engData);
 
-  describe("addTodo", () => {
-    // Positive Tests
-    it("should add a new 'Todo' object to its 'todos' array", () => {
-      // Arrange
-      const todoList = new TodoList();
-      const todoText = "Mow Lawn";
+        expect(manager.name).toBe("Bob");
 
-      // Act
-      todoList.addTodo(todoText);
+    })
+    it("should create an object containing an id", () => {
+      
+        const manager = new Manager(engData);
 
-      // Assert
-      expect(todoList.todos.length).toEqual(1);
-      expect(todoList.todos[0] instanceof Todo).toEqual(true);
-      expect(todoList.todos[0].text).toEqual(todoText);
-    });
+        expect(manager.getId()).toEqual(111);
 
-    // Exception test
-    it("should throw an error if not provided text", () => {
-      // Arrange
-      const todoList = new TodoList();
-      const err = new Error(
-        "Expected parameter 'text' to be a non empty string"
-      );
-      const cb = () => todoList.addTodo();
+    })
+    it("should create an object containing an email", () => {
+      
+        const manager = new Manager(engData);
 
-      // Assert
-      expect(cb).toThrowError(err);
-    });
-  });
+        expect(manager.getEmail()).toBe("bob@company.com");
+    })
+    it("getRole function should return manager", () => {
+      
+        const manager = new Manager(engData);
 
-  describe("getNextTodo", () => {
-    // Positive test
-    it("should return the 0th todo element in the 'todos' array without removing it", () => {
-      // Arrange
-      const todoList = new TodoList();
-      const text1 = "Exercise";
-      const text2 = "Wash Car";
-      let nextTodo;
+        expect(manager.getRole()).toBe("Manager");
+    })
+    it("should create an object containing office number", () => {
+      
+        const manager = new Manager(engData);
 
-      // Act
-      todoList.addTodo(text1);
-      todoList.addTodo(text2);
-      nextTodo = todoList.getNextTodo();
-
-      // Assert
-      expect(nextTodo instanceof Todo).toEqual(true);
-      expect(nextTodo.text).toEqual(text1);
-      expect(todoList.todos.length).toEqual(2);
-    });
-
-    // Negative test
-    it("should return undefined if there are no todos", () => {
-      // Arrange
-      const todoList = new TodoList();
-      let nextTodo;
-
-      // Act
-      nextTodo = todoList.getNextTodo();
-
-      // Assert
-      expect(typeof nextTodo).toEqual("undefined");
-    });
-  });
-
-  describe("completeNextTodo", () => {
-    // Positive test
-    it("should return and remove the next todo in the list", () => {
-      // Arrange
-      const todoList = new TodoList();
-      const text1 = "Make Dinner";
-      const text2 = "Wash Dishes";
-      let nextTodo;
-
-      // Act
-      todoList.addTodo(text1);
-      todoList.addTodo(text2);
-      nextTodo = todoList.completeNextTodo();
-
-      // Assert
-      expect(nextTodo instanceof Todo).toEqual(true);
-      expect(nextTodo.text).toEqual(text1);
-      expect(todoList.todos.length).toEqual(1);
-      expect(todoList.getNextTodo().text).toEqual(text2);
-    });
-  });
-});
+        expect(manager.officeNumber).toBe("123-456-7899");
+    })
+  })
+})

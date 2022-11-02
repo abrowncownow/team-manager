@@ -89,7 +89,7 @@ function addEngineer() {
             },
             {
                 type: "input",
-                message: `Enter the "Engineer's github account:`,
+                message: `Enter the "Engineer's github username:`,
                 name: "github",
             },
         ])
@@ -126,7 +126,6 @@ function addIntern() {
         ])
         .then((answers) => {
             team.push(new Intern(answers));
-            console.log(team);
             menu();
         });
 }
@@ -139,14 +138,13 @@ async function generateHTML(){
             <div class="general">
                 <img src="./assets/images/${manager.role}.png">
                 <h1>${manager.role}</h1> 
-                <h2><a href="mailto:${manager.email}">${manager.email}</a></h2>
+                <h2>${manager.name}</h2>
                 <p>ID: ${manager.id}</p>
                 <p>Email: <a href="mailto:${manager.email}">${manager.email}</a></p>
                 <p>Office: ${manager.officeNumber}</p>
             </div>
         </article>`;
     cardHTML += managerHTML;
-    console.log(team);
     team.forEach(member => 
         cardHTML+= `
                 <article class="card">
